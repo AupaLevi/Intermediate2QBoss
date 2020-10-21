@@ -12,6 +12,7 @@ namespace Intermediate2QBoss
     class SQLServerConductor
     {
         private SqlConnection sqlConnection;
+        private ProjectStringPool projectStringPool = new ProjectStringPool();
         private string actionResult;
         private int deletedRows;
 
@@ -19,7 +20,7 @@ namespace Intermediate2QBoss
 
         public SQLServerConductor()
         {
-            Initializer();
+            Initializer();       
         }
 
         private void Initializer()
@@ -32,6 +33,10 @@ namespace Intermediate2QBoss
             String sqlConnectionString = Builder.ConnectionString;
             sqlConnection = new SqlConnection(sqlConnectionString);
         }
+
+
+        
+        
 
         private bool OpenConnection()
         {
@@ -72,20 +77,23 @@ namespace Intermediate2QBoss
                 return false;
             }
         }
-        /*------------------
+
+       
+
+       
         public DataTable GetDataTable(String sql)
         {
             DataTable dataTable = null;
             OpenConnection();
             try
             {
-                string name = sqlConnection.ServiceName;
+                //string name = sqlConnection.ServiceName;
                 CommonUntil commonUntil = new CommonUntil();
                 //int year = commonUntil.getYear();
-                OracleCommand command = new OracleCommand(sql, this.connection);
-                command.Connection = connection;
-                command.CommandText = sql;
-                command.CommandType = CommandType.Text;
+                SqlCommand sqlcommand = new SqlCommand(sql, this.sqlConnection);
+                sqlcommand.Connection = sqlConnection;
+                sqlcommand.CommandText = sql;
+                sqlcommand.CommandType = CommandType.Text;
                 //OracleParameter[] parameters = new OracleParameter[] {
                 //    new OracleParameter("val01",year),
                 //    new OracleParameter("val02",month)
@@ -94,25 +102,25 @@ namespace Intermediate2QBoss
                 //sql = "SELECT * FROM tc_ome_file " +
                 //        " WHERE tc_ome06 = '1' ";
                 //OracleCommand command = new OracleCommand(sql, this.connection);
-                OracleDataReader oracleDataReader = command.ExecuteReader();
+                SqlDataReader sqlDataReader = sqlcommand.ExecuteReader();
 
                 dataTable = new DataTable();
-                dataTable.Load(oracleDataReader);
+                dataTable.Load(sqlDataReader);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("OraDBConductor Excetpion" + ex.Message);
+                Console.WriteLine("SQLConductor Excetpion" + ex.Message);
                 PostalService postalService = new PostalService();
                 postalService.SendMail("Levi.Huang@aupa.com.tw", "Intermediate Data Copier Alert", ex.Message);
             }
             finally
             {
-                CloseOracleConnection();
+                CloseConnection();
             }
 
 
             return dataTable;
         }
-        -------------------*/
+        
     }
 }

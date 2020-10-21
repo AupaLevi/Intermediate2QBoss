@@ -61,6 +61,7 @@
     <Compile Include="PostalService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectStringPool.cs" />
+    <Compile Include="QbossSQLServerConductor.cs" />
     <Compile Include="SQLServerConductor.cs" />
   </ItemGroup>
   <ItemGroup>
