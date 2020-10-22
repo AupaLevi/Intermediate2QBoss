@@ -63,6 +63,7 @@
     <Compile Include="ProjectStringPool.cs" />
     <Compile Include="QbossSQLServerConductor.cs" />
     <Compile Include="SQLServerConductor.cs" />
+    <Compile Include="SQLServerDataSecuricor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">

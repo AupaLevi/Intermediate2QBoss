@@ -32,6 +32,7 @@ namespace Intermediate2QBoss
             string actionResult;
             string oraResult;
             int dataCount;
+            string MasterResult;
 
             Random rnd = new Random();
 
@@ -54,7 +55,7 @@ namespace Intermediate2QBoss
 
                         try
                         {
-                            //oraEi_MasterObject.Id = 36;
+
                             oraEi_MasterObject.InvoiceNumber = row[dataTable.Columns["ei_ome01"]].ToString();
                             oraEi_MasterObject.Status = 1;
                             oraEi_MasterObject.Purpose = 0;
@@ -65,7 +66,7 @@ namespace Intermediate2QBoss
                             oraEi_MasterObject.CustomerTaxID = row[dataTable.Columns["ei_ome05"]].ToString();
                             oraEi_MasterObject.InvoiceType = 7;
                             oraEi_MasterObject.PrintMark = ' ';
-                            oraEi_MasterObject.RandomNumber = rnd.Next(0,9999); // creates a number between 1 and 9998
+                            oraEi_MasterObject.RandomNumber = rnd.Next(0, 9999); // creates a number between 1 and 9998
                             oraEi_MasterObject.CarrierType = "  ";
                             oraEi_MasterObject.CarrierID = "  ";
                             oraEi_MasterObject.SalesAmount = (row[dataTable.Columns["ei_ome13"]]) == DBNull.Value ? 0 :
@@ -108,7 +109,7 @@ namespace Intermediate2QBoss
                             oraEi_MasterObject.InvoiceSpecies = 2;
                             oraEi_MasterObject.InvType = 35;
                             oraEi_MasterObject.OrderNo = "  ";
-                            oraEi_MasterObject.CustomsClearanceMark = ' '; 
+                            oraEi_MasterObject.CustomsClearanceMark = ' ';
                             oraEi_MasterObject.CreditCardLast4No = "  ";
                             oraEi_MasterObject.CustomerAddress = "  ";
                             oraEi_MasterObject.MessageBeginTime = " ";
@@ -129,35 +130,34 @@ namespace Intermediate2QBoss
                         {
                             if (actionResult == "Y")
                             {
-                                //SQLServerDataSecuricor dataSecuricor = new SQLServerDataSecuricor();
-                                //dataCount = 0;
-                                //dataCount = dataSecuricor.SelectCCCxRowCounts(
-                                ////    oraCCCxObject.Tc_cccx01, oraCCCxObject.Tc_cccx02, oraCCCxObject.Tc_cccx03);
-                                ////if (dataCount == 0)
-                                ////{
-                                insertSQLServerEi_MasterObjects.Add(oraEi_MasterObject);
-                                ////}
+                                SQLServerDataSecuricor dataSecuricor = new SQLServerDataSecuricor();
+                                dataCount = 0;
+                                dataCount = dataSecuricor.SelectEi_MasterRowCounts(oraEi_MasterObject.InvoiceNumber);
+
+                                if (dataCount == 0)
+                                {
+                                    insertSQLServerEi_MasterObjects.Add(oraEi_MasterObject);
+                                }
                             }
                         }//End of try-catch-finally
                     }//End of if else
+                    MasterResult = "FAILED";
                     goodSQLServerEi_MasterObjects = new List<OraEi_MasterObject>();
                     insertedEi_MasterObjects = new List<OraEi_MasterObject>();
 
                     if (insertSQLServerEi_MasterObjects.Count > 0)
                     {
-                        qbossSQLServerConductor = new QbossSQLServerConductor();
-
-
-                        //deletedRows = sqlServerConductor.DeleteOmeRows(year, month);
-                        insertedEi_MasterObjects = qbossSQLServerConductor.InsertEi_MasterSQLServer(insertSQLServerEi_MasterObjects);
+                        foreach (OraEi_MasterObject ei_InsMaster in insertSQLServerEi_MasterObjects)
+                        {
+                            qbossSQLServerConductor = new QbossSQLServerConductor();
+                            MasterResult = qbossSQLServerConductor.InsertEi_MasterSQLServer(ei_InsMaster);
+                            if (MasterResult == "SUCCESS")
+                            {
+                                goodSQLServerEi_MasterObjects.Add(ei_InsMaster);
+                            }
+                        }
                     }
-                    dataCount = 0;
-                    dataCount = insertedEi_MasterObjects.Count;
-
-
                 }
-
-                   
             }
             catch (Exception ex)
             {
@@ -184,7 +184,7 @@ namespace Intermediate2QBoss
 
                         try
                         {
-                            oraEi_DetailObject.InvoiceId = 36;
+                            oraEi_DetailObject.InvoiceId = 1;
                             oraEi_DetailObject.ProductID = row[dataTable.Columns["omb04"]].ToString();
                             oraEi_DetailObject.Description = row[dataTable.Columns["omb06"]].ToString();
                             oraEi_DetailObject.Quantity = (row[dataTable.Columns["omb12"]]) == DBNull.Value ? 0 :
@@ -210,29 +210,34 @@ namespace Intermediate2QBoss
                         {
                             if (oraResult == "Y")
                             {
-                                //SQLServerDataSecuricor dataSecuricor = new SQLServerDataSecuricor();
-                                //dataCount = 0;
-                                //dataCount = dataSecuricor.SelectCCCxRowCounts(
-                                ////    oraCCCxObject.Tc_cccx01, oraCCCxObject.Tc_cccx02, oraCCCxObject.Tc_cccx03);
-                                ////if (dataCount == 0)
-                                ////{
-                                insertSQLServerEi_DetailObjects.Add(oraEi_DetailObject);
-                                ////}
+                                SQLServerDataSecuricor dataSecuricor = new SQLServerDataSecuricor();
+                                dataCount = 0;
+                                dataCount = dataSecuricor.SelectEi_DetailRowCounts(oraEi_DetailObject.ProductID);
+
+                                if (dataCount == 0)
+                                {
+                                    insertSQLServerEi_DetailObjects.Add(oraEi_DetailObject);
+                                }
                             }
                         }//End of try-catch-finally
                         //}//End of foreach
                     }//End of if else
-                     //ogaSQLServerResult = "FAILED";
+                    MasterResult = "FAILED";
                     goodSQLServerEi_DetailObjects = new List<OraEi_DetailObject>();
                     insertedEi_DetailObjects = new List<OraEi_DetailObject>();
 
                     if (insertSQLServerEi_DetailObjects.Count > 0)
                     {
-                        qbossSQLServerConductor = new QbossSQLServerConductor();
-
-
-                        //deletedRows = sqlServerConductor.DeleteOmeRows(year, month);
-                        insertedEi_DetailObjects = qbossSQLServerConductor.InsertEi_DetailSQLServer(insertSQLServerEi_DetailObjects);
+                        foreach(OraEi_DetailObject ei_InsDetail in insertSQLServerEi_DetailObjects)
+                        {
+                            qbossSQLServerConductor = new QbossSQLServerConductor();
+                            MasterResult = qbossSQLServerConductor.InsertEi_DetailSQLServer(ei_InsDetail);
+                            if (MasterResult == "SUCCESS")
+                            {
+                                goodSQLServerEi_DetailObjects.Add(ei_InsDetail);
+                            }
+                        }
+                        
                     }
 
                     dataCount = 0;
@@ -248,6 +253,6 @@ namespace Intermediate2QBoss
             }
 
         }
-        
+
     }
 }
