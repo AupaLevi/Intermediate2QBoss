@@ -24,6 +24,7 @@ namespace Intermediate2QBoss
         private string SelectDetailMasterDataSQL;
 
         private string updateSQLServerEi_DetailIdSQL;
+        private string updateSQLServerEi_MasterMacNumSQL;
 
         public string getOracleConnectionString(string host, string port, string sid, string user, string pass)
         {
@@ -90,12 +91,20 @@ namespace Intermediate2QBoss
             return this.insSQLServerEi_DetailSQL;
         }
 
-        public string getInsSQLServerEi_DetailIdSQL()
+        public string getUpdSQLServerEi_DetailIdSQL()
         {
             this.updateSQLServerEi_DetailIdSQL =
                 " update  EInvoiceDetail set InvoiceId = @val00  ";
 
             return this.updateSQLServerEi_DetailIdSQL;
+        }
+
+        public string getUpdSQLServerEi_MasterMacNumSQL()
+        {
+            this.updateSQLServerEi_MasterMacNumSQL =
+                " update  EInvoiceMaster set MachineSerialNum = @val00  ";
+
+            return this.updateSQLServerEi_MasterMacNumSQL;
         }
     }
 }

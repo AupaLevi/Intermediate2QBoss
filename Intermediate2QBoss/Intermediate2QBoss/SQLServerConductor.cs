@@ -14,6 +14,9 @@ namespace Intermediate2QBoss
         private SqlConnection sqlConnection;
         private ProjectStringPool projectStringPool = new ProjectStringPool();
 
+        private string sql;
+        private string actionResult;
+
         public SQLServerConductor()
         {
             Initializer();       
@@ -117,6 +120,7 @@ namespace Intermediate2QBoss
 
             return dataTable;
         }
-        
+
+       
     }
 }

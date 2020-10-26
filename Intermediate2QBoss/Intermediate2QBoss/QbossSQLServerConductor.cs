@@ -245,6 +245,40 @@ namespace Intermediate2QBoss
             return actionResult;
         }
 
-        
+        public String UpdateEi_MasterMacNumSQLServer(OraEi_MasterObject oraEi_MasObjs)
+        {
+            sql = "";
+            ProjectStringPool stringPool = new ProjectStringPool();
+
+            sql = stringPool.getUpdSQLServerEi_MasterMacNumSQL();
+
+            actionResult = "SUCCESS";
+            OpenConnection();
+
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sql;
+
+                sqlCommand.Parameters.AddWithValue("@val00", oraEi_MasObjs.MachineSerialNum);
+
+
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.Write("SQLServer Ins Ei_MasterMacNum Exception : " + ex.Message);
+                actionResult = "FAIL";
+
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+
+            return actionResult;
+        }
     }
 }

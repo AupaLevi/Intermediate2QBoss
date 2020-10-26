@@ -27,6 +27,10 @@ namespace Intermediate2QBoss
 
             List<OraEi_MasterObject> goodSQLServerEi_MasterObjects;
             List<OraEi_MasterObject> insertedEi_MasterObjects;
+            List<OraEi_MasterObject> updatedSQLServerObj;
+
+            List<OraEi_MasterObject> goodSQLServerMasterMacNumObj;
+            List<OraEi_MasterObject> updatedSQLServerMasterMacNumObj;
 
             List<OraEi_DetailObject> goodSQLServerEi_DetailObjects;
             List<OraEi_DetailObject> insertedEi_DetailObjects;
@@ -34,6 +38,8 @@ namespace Intermediate2QBoss
             List<OraEi_DetailObject> updateSQLServerDetailId;
             List<OraEi_DetailObject> goodSQLServerEi_DetailIdObj;
             List<OraEi_DetailObject> updatedSQLServerDetailIdObj;
+
+
 
             string actionResult;
             string oraResult;
@@ -95,7 +101,7 @@ namespace Intermediate2QBoss
                             oraEi_MasterObject.SellerName = "歐帕生技醫藥股份有限公司 AUPA BIOPHARM CO.";
                             oraEi_MasterObject.SellerAddress = "NULL";
                             oraEi_MasterObject.MachineCode = "DC";
-                            oraEi_MasterObject.MachineSerialNum = 1;
+                            oraEi_MasterObject.MachineSerialNum = ' ';
                             oraEi_MasterObject.CancelExported = ' ';
                             oraEi_MasterObject.CancelReason = "  ";
                             oraEi_MasterObject.CancelTime = " ";
@@ -268,7 +274,7 @@ namespace Intermediate2QBoss
                 dataTable = masterDetailIDSQLServerConductor.GetDataTable(oraSQLString);
                 oraResult = "";
 
-                updateSQLServerDetailId =new List<OraEi_DetailObject>();
+                updatedSQLServerDetailIdObj =new List<OraEi_DetailObject>();
                 goodSQLServerEi_DetailIdObj = new List<OraEi_DetailObject>();
 
                 if (dataTable.Rows.Count > 0)
@@ -338,6 +344,86 @@ namespace Intermediate2QBoss
                 Console.Write("Exception : " + ex.Message);
                 return;
             }
+
+            // update EInvoiceMaster_MachineSerialNum
+            try
+            {
+                string oraSQLString = projectStringPool.getSelectDetailMasterDataSQL();
+
+                dataTable = qbossSQLServerConductor.GetDataTable(oraSQLString);
+                oraResult = "";
+
+                updatedSQLServerMasterMacNumObj = new List<OraEi_MasterObject>();
+                goodSQLServerMasterMacNumObj = new List<OraEi_MasterObject>();
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        oraEi_MasterObject = new OraEi_MasterObject();
+                        oraResult = "Y";
+
+                        try
+                        {
+                            oraEi_MasterObject.MachineSerialNum = (row[dataTable.Columns["Id"]]) == DBNull.Value ? 0 :
+                                   Convert.ToInt16(row[dataTable.Columns["Id"]]);
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            oraResult = "N";
+                            Console.WriteLine("Foreach Exception:" + ex.Message);
+                            PostalService postalService = new PostalService();
+                            postalService.SendMail("levi.huang@aupa.com.tw", "Intermediate2Qboss Data Copier Alert", ex.Message);
+                            break;
+                        }
+                        finally
+                        {
+                            if (oraResult == "Y")
+                            {
+                                SQLServerDataSecuricor dataSecuricor = new SQLServerDataSecuricor();
+                                dataCount = 0;
+                                dataCount = dataSecuricor.SelectEi_MasterMacNumRowCounts(oraEi_MasterObject.MachineSerialNum);
+
+                                if (dataCount == 0)
+                                {
+                                    goodSQLServerMasterMacNumObj.Add(oraEi_MasterObject);
+                                }
+                            }
+                        }//End of try-catch-finally
+                        //}//End of foreach
+                    }//End of if else
+                    actionResult = "FAILED";
+
+                    updatedSQLServerMasterMacNumObj = new List<OraEi_MasterObject>();
+
+                    if (goodSQLServerMasterMacNumObj.Count > 0)
+                    {
+                        foreach (OraEi_MasterObject ei_UpdNum in goodSQLServerMasterMacNumObj)
+                        {
+                            qbossSQLServerConductor = new QbossSQLServerConductor();
+                            actionResult = qbossSQLServerConductor.UpdateEi_MasterMacNumSQLServer(ei_UpdNum);
+                            if (actionResult == "SUCCESS")
+                            {
+                                updatedSQLServerMasterMacNumObj.Add(ei_UpdNum);
+                            }
+                        }
+
+                    }
+
+                    dataCount = 0;
+                    dataCount = updatedSQLServerMasterMacNumObj.Count;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Exception : " + ex.Message);
+                return;
+            }
+
 
 
         }

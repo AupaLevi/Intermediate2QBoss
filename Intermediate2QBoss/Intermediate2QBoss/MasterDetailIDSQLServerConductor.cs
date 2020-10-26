@@ -121,7 +121,7 @@ namespace Intermediate2QBoss
             sql = "";
             ProjectStringPool stringPool = new ProjectStringPool();
 
-            sql = stringPool.getInsSQLServerEi_DetailIdSQL();
+            sql = stringPool.getUpdSQLServerEi_DetailIdSQL();
 
             actionResult = "SUCCESS";
             OpenConnection();
