@@ -12,9 +12,8 @@ namespace Intermediate2QBoss
     {
         private OracleConnection connection;
         private ProjectStringPool projectStringPool = new ProjectStringPool();
-        private string sql;
-        private string updateSQLString;
-        private string oraResult;
+
+
 
         public OracleDBConductor()
         {

@@ -13,21 +13,27 @@ namespace Intermediate2QBoss
         static void Main(string[] args)
         {
             ProjectStringPool projectStringPool = new ProjectStringPool();
+
             SQLServerConductor sqlServerConductor = new SQLServerConductor();
             QbossSQLServerConductor qbossSQLServerConductor = new QbossSQLServerConductor();
             OracleDBConductor oracleDBConductor = new OracleDBConductor();
+            MasterDetailIDSQLServerConductor masterDetailIDSQLServerConductor = new MasterDetailIDSQLServerConductor();
+
             DataTable dataTable;
+
             OraEi_MasterObject oraEi_MasterObject;
-
             OraEi_DetailObject oraEi_DetailObject;
+            OraEi_DetailObject oraEi_DetailIDObj;
 
-            List<OraEi_MasterObject> insertSQLServerEi_MasterObjects;
             List<OraEi_MasterObject> goodSQLServerEi_MasterObjects;
             List<OraEi_MasterObject> insertedEi_MasterObjects;
 
-            List<OraEi_DetailObject> insertSQLServerEi_DetailObjects;
             List<OraEi_DetailObject> goodSQLServerEi_DetailObjects;
             List<OraEi_DetailObject> insertedEi_DetailObjects;
+
+            List<OraEi_DetailObject> updateSQLServerDetailId;
+            List<OraEi_DetailObject> goodSQLServerEi_DetailIdObj;
+            List<OraEi_DetailObject> updatedSQLServerDetailIdObj;
 
             string actionResult;
             string oraResult;
@@ -43,8 +49,8 @@ namespace Intermediate2QBoss
                 dataTable = sqlServerConductor.GetDataTable(sqlString);
                 actionResult = "";
 
-                insertSQLServerEi_MasterObjects = new List<OraEi_MasterObject>();
-
+                //insertSQLServerEi_MasterObjects = new List<OraEi_MasterObject>();
+                goodSQLServerEi_MasterObjects = new List<OraEi_MasterObject>();
 
                 if (dataTable.Rows.Count > 0)
                 {
@@ -66,7 +72,7 @@ namespace Intermediate2QBoss
                             oraEi_MasterObject.CustomerTaxID = row[dataTable.Columns["ei_ome05"]].ToString();
                             oraEi_MasterObject.InvoiceType = 7;
                             oraEi_MasterObject.PrintMark = ' ';
-                            oraEi_MasterObject.RandomNumber = rnd.Next(0, 9999); // creates a number between 1 and 9998
+                            oraEi_MasterObject.RandomNumber = rnd.Next(0, 10000); // creates a number between 1 and 9999
                             oraEi_MasterObject.CarrierType = "  ";
                             oraEi_MasterObject.CarrierID = "  ";
                             oraEi_MasterObject.SalesAmount = (row[dataTable.Columns["ei_ome13"]]) == DBNull.Value ? 0 :
@@ -136,24 +142,24 @@ namespace Intermediate2QBoss
 
                                 if (dataCount == 0)
                                 {
-                                    insertSQLServerEi_MasterObjects.Add(oraEi_MasterObject);
+                                    goodSQLServerEi_MasterObjects.Add(oraEi_MasterObject);
                                 }
                             }
                         }//End of try-catch-finally
                     }//End of if else
                     MasterResult = "FAILED";
-                    goodSQLServerEi_MasterObjects = new List<OraEi_MasterObject>();
+
                     insertedEi_MasterObjects = new List<OraEi_MasterObject>();
 
-                    if (insertSQLServerEi_MasterObjects.Count > 0)
+                    if (goodSQLServerEi_MasterObjects.Count > 0)
                     {
-                        foreach (OraEi_MasterObject ei_InsMaster in insertSQLServerEi_MasterObjects)
+                        foreach (OraEi_MasterObject ei_InsMaster in goodSQLServerEi_MasterObjects)
                         {
                             qbossSQLServerConductor = new QbossSQLServerConductor();
                             MasterResult = qbossSQLServerConductor.InsertEi_MasterSQLServer(ei_InsMaster);
                             if (MasterResult == "SUCCESS")
                             {
-                                goodSQLServerEi_MasterObjects.Add(ei_InsMaster);
+                                insertedEi_MasterObjects.Add(ei_InsMaster);
                             }
                         }
                     }
@@ -164,6 +170,8 @@ namespace Intermediate2QBoss
                 Console.Write("Exception : " + ex.Message);
                 return;
             }
+
+
             // insert MasterDetail
             try
             {
@@ -172,8 +180,8 @@ namespace Intermediate2QBoss
                 dataTable = oracleDBConductor.GetDataTable(oraSQLString);
                 oraResult = "";
 
-                insertSQLServerEi_DetailObjects = new List<OraEi_DetailObject>();
-
+                //insertSQLServerEi_DetailObjects = new List<OraEi_DetailObject>();
+                goodSQLServerEi_DetailObjects = new List<OraEi_DetailObject>();
 
                 if (dataTable.Rows.Count > 0)
                 {
@@ -184,7 +192,7 @@ namespace Intermediate2QBoss
 
                         try
                         {
-                            oraEi_DetailObject.InvoiceId = 1;
+                            oraEi_DetailObject.InvoiceId = ' ';
                             oraEi_DetailObject.ProductID = row[dataTable.Columns["omb04"]].ToString();
                             oraEi_DetailObject.Description = row[dataTable.Columns["omb06"]].ToString();
                             oraEi_DetailObject.Quantity = (row[dataTable.Columns["omb12"]]) == DBNull.Value ? 0 :
@@ -216,28 +224,28 @@ namespace Intermediate2QBoss
 
                                 if (dataCount == 0)
                                 {
-                                    insertSQLServerEi_DetailObjects.Add(oraEi_DetailObject);
+                                    goodSQLServerEi_DetailObjects.Add(oraEi_DetailObject);
                                 }
                             }
                         }//End of try-catch-finally
                         //}//End of foreach
                     }//End of if else
                     MasterResult = "FAILED";
-                    goodSQLServerEi_DetailObjects = new List<OraEi_DetailObject>();
+                    
                     insertedEi_DetailObjects = new List<OraEi_DetailObject>();
 
-                    if (insertSQLServerEi_DetailObjects.Count > 0)
+                    if (goodSQLServerEi_DetailObjects.Count > 0)
                     {
-                        foreach(OraEi_DetailObject ei_InsDetail in insertSQLServerEi_DetailObjects)
+                        foreach (OraEi_DetailObject ei_InsDetail in goodSQLServerEi_DetailObjects)
                         {
                             qbossSQLServerConductor = new QbossSQLServerConductor();
                             MasterResult = qbossSQLServerConductor.InsertEi_DetailSQLServer(ei_InsDetail);
                             if (MasterResult == "SUCCESS")
                             {
-                                goodSQLServerEi_DetailObjects.Add(ei_InsDetail);
+                                insertedEi_DetailObjects.Add(ei_InsDetail);
                             }
                         }
-                        
+
                     }
 
                     dataCount = 0;
@@ -251,6 +259,86 @@ namespace Intermediate2QBoss
                 Console.Write("Exception : " + ex.Message);
                 return;
             }
+
+            // update MasterDetail_InvoiceId
+            try
+            {
+                string oraSQLString = projectStringPool.getSelectDetailMasterDataSQL();
+
+                dataTable = masterDetailIDSQLServerConductor.GetDataTable(oraSQLString);
+                oraResult = "";
+
+                updateSQLServerDetailId =new List<OraEi_DetailObject>();
+                goodSQLServerEi_DetailIdObj = new List<OraEi_DetailObject>();
+
+                if (dataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        oraEi_DetailIDObj = new OraEi_DetailObject();
+                        oraResult = "Y";
+
+                        try
+                        {
+                            oraEi_DetailIDObj.InvoiceId = (row[dataTable.Columns["Id"]]) == DBNull.Value ? 0 :
+                                   Convert.ToInt16(row[dataTable.Columns["Id"]]);
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            oraResult = "N";
+                            Console.WriteLine("Foreach Exception:" + ex.Message);
+                            PostalService postalService = new PostalService();
+                            postalService.SendMail("levi.huang@aupa.com.tw", "Intermediate2Qboss Data Copier Alert", ex.Message);
+                            break;
+                        }
+                        finally
+                        {
+                            if (oraResult == "Y")
+                            {
+                                SQLServerDataSecuricor dataSecuricor = new SQLServerDataSecuricor();
+                                dataCount = 0;
+                                dataCount = dataSecuricor.SelectEi_MasterIDRowCounts(oraEi_DetailIDObj.InvoiceId);
+
+                                if (dataCount == 1)
+                                {
+                                    goodSQLServerEi_DetailIdObj.Add(oraEi_DetailIDObj);
+                                }
+                            }
+                        }//End of try-catch-finally
+                        //}//End of foreach
+                    }//End of if else
+                    MasterResult = "FAILED";
+
+                    updatedSQLServerDetailIdObj = new List<OraEi_DetailObject>();
+
+                    if (goodSQLServerEi_DetailIdObj.Count > 0)
+                    {
+                        foreach (OraEi_DetailObject ei_InsDetailId in goodSQLServerEi_DetailIdObj)
+                        {
+                            masterDetailIDSQLServerConductor = new MasterDetailIDSQLServerConductor();
+                            MasterResult = masterDetailIDSQLServerConductor.UpdateEi_DetailInvIdSQLServer(ei_InsDetailId);
+                            if (MasterResult == "SUCCESS")
+                            {
+                                updatedSQLServerDetailIdObj.Add(ei_InsDetailId);
+                            }
+                        }
+
+                    }
+
+                    dataCount = 0;
+                    dataCount = updatedSQLServerDetailIdObj.Count;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Exception : " + ex.Message);
+                return;
+            }
+
 
         }
 

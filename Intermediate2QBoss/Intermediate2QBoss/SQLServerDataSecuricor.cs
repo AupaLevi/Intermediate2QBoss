@@ -135,5 +135,39 @@ namespace Intermediate2QBoss
             return dataCount;
         }
 
+        public int SelectEi_MasterIDRowCounts(int Key1)
+        {
+            OpenConnection();
+
+            dataCount = 0;
+            try
+            {
+                sql = "SELECT COUNT(Id) FROM EInvoiceMaster " +
+                " WHERE Id='" + Key1 + "'";
+
+                SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sql;
+
+
+
+                dataCount = Convert.ToInt16(sqlCommand.ExecuteScalar());
+                if (dataCount == -1)
+                {
+                    dataCount = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("SQLServer Data Secure Error : " + ex.Message);
+                sqlConnection.Close();
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return dataCount;
+        }
+
     }
 }

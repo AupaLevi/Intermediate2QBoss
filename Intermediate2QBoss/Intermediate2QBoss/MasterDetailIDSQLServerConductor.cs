@@ -6,33 +6,33 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Intermediate2QBoss
 {
-    class SQLServerConductor
+    class MasterDetailIDSQLServerConductor
     {
         private SqlConnection sqlConnection;
         private ProjectStringPool projectStringPool = new ProjectStringPool();
+        private string actionResult;
 
-        public SQLServerConductor()
+
+        string sql;
+
+
+        public MasterDetailIDSQLServerConductor()
         {
-            Initializer();       
+            Initializer();
         }
 
         private void Initializer()
         {
             SqlConnectionStringBuilder Builder = new SqlConnectionStringBuilder();
             Builder.DataSource = "AUPA-EAI\\SQLEXPRESSINV";
-            Builder.InitialCatalog = "EI_intermediate";
+            Builder.InitialCatalog = "i-Free-TEST";
             Builder.UserID = "sa";
             Builder.Password = "#Aupa=234";
             String sqlConnectionString = Builder.ConnectionString;
             sqlConnection = new SqlConnection(sqlConnectionString);
         }
-
-
-        
-        
 
         private bool OpenConnection()
         {
@@ -74,9 +74,7 @@ namespace Intermediate2QBoss
             }
         }
 
-       
 
-       
         public DataTable GetDataTable(String sql)
         {
             DataTable dataTable = null;
@@ -107,7 +105,7 @@ namespace Intermediate2QBoss
             {
                 Console.WriteLine("SQLConductor Excetpion" + ex.Message);
                 PostalService postalService = new PostalService();
-                postalService.SendMail("Levi.Huang@aupa.com.tw", "Intermediate2Qboss Data Copier Alert", ex.Message);
+                postalService.SendMail("Levi.Huang@aupa.com.tw", "Intermediate Data Copier Alert", ex.Message);
             }
             finally
             {
@@ -117,6 +115,41 @@ namespace Intermediate2QBoss
 
             return dataTable;
         }
-        
+
+        public String UpdateEi_DetailInvIdSQLServer(OraEi_DetailObject oraEi_DetailIds)
+        {
+            sql = "";
+            ProjectStringPool stringPool = new ProjectStringPool();
+
+            sql = stringPool.getInsSQLServerEi_DetailIdSQL();
+
+            actionResult = "SUCCESS";
+            OpenConnection();
+
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sql;
+
+                sqlCommand.Parameters.AddWithValue("@val00", oraEi_DetailIds.InvoiceId);
+
+
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.Write("SQLServer Ins Ei_DetailId Exception : " + ex.Message);
+                actionResult = "FAIL";
+
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+
+            return actionResult;
+        }
     }
 }

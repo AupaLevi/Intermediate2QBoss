@@ -21,6 +21,10 @@ namespace Intermediate2QBoss
         private string SelectDetailTc_OmeDataSQL;
         private string insSQLServerEi_DetailSQL;
 
+        private string SelectDetailMasterDataSQL;
+
+        private string updateSQLServerEi_DetailIdSQL;
+
         public string getOracleConnectionString(string host, string port, string sid, string user, string pass)
         {
             this.oracleConnectionString = String.Format(
@@ -68,6 +72,13 @@ namespace Intermediate2QBoss
             return this.SelectDetailTc_OmeDataSQL;
         }
 
+        public string getSelectDetailMasterDataSQL()
+        {
+            this.SelectDetailMasterDataSQL =
+                " select * from EInvoiceMaster ";
+            return this.SelectDetailMasterDataSQL;
+        }
+
         public string getInsSQLServerEi_DetailSQL()
         {
             this.insSQLServerEi_DetailSQL =
@@ -77,6 +88,14 @@ namespace Intermediate2QBoss
                 "@val00 ,@val01 ,@val02 ,@val03 ,@val04 ,@val05 ,@val06 ,@val07  " +
                  ")";
             return this.insSQLServerEi_DetailSQL;
+        }
+
+        public string getInsSQLServerEi_DetailIdSQL()
+        {
+            this.updateSQLServerEi_DetailIdSQL =
+                " update  EInvoiceDetail set InvoiceId = @val00  ";
+
+            return this.updateSQLServerEi_DetailIdSQL;
         }
     }
 }

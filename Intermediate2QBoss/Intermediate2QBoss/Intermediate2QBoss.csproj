@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonUntil.cs" />
+    <Compile Include="MasterDetailIDSQLServerConductor.cs" />
     <Compile Include="OracleDBConductor.cs" />
     <Compile Include="OraEi_DetailObject.cs" />
     <Compile Include="OraEi_MasterLogObject.cs" />

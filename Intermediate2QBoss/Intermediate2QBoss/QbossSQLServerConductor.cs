@@ -14,7 +14,7 @@ namespace Intermediate2QBoss
         private SqlConnection sqlConnection;
         private ProjectStringPool projectStringPool = new ProjectStringPool();
         private string actionResult;
-        private int deletedRows;
+
 
         string sql;
 
@@ -111,6 +111,7 @@ namespace Intermediate2QBoss
                 sqlCommand.Parameters.AddWithValue("@val019", oraEi_Masters.TaxRate);
                 sqlCommand.Parameters.AddWithValue("@val020", oraEi_Masters.TotalAmount);
                 sqlCommand.Parameters.AddWithValue("@val021", oraEi_Masters.DonateNo);
+                sqlCommand.Parameters.AddWithValue("@val022", oraEi_Masters.DonateMark);
                 sqlCommand.Parameters.AddWithValue("@val023", oraEi_Masters.Exported);
                 sqlCommand.Parameters.AddWithValue("@val024", oraEi_Masters.GroupMark);
                 sqlCommand.Parameters.AddWithValue("@val025", oraEi_Masters.SellerTaxID);
@@ -243,5 +244,7 @@ namespace Intermediate2QBoss
 
             return actionResult;
         }
+
+        
     }
 }
