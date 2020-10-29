@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Intermediate2QBoss
 {
-    class OraEi_DetailObject
+    class SqlEi_DetailObject
     {
         private int invoiceId;
         private string productID;

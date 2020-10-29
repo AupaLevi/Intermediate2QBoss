@@ -66,19 +66,12 @@ namespace Intermediate2QBoss
             {
                 string name = connection.ServiceName;
                 CommonUntil commonUntil = new CommonUntil();
-                //int year = commonUntil.getYear();
+          
                 OracleCommand command = new OracleCommand(sql, this.connection);
                 command.Connection = connection;
                 command.CommandText = sql;
                 command.CommandType = CommandType.Text;
-                //OracleParameter[] parameters = new OracleParameter[] {
-                //    new OracleParameter("val01",year),
-                //    new OracleParameter("val02",month)
-                //};
-                //command.Parameters.AddRange(parameters);
-                //sql = "SELECT * FROM tc_ome_file " +
-                //        " WHERE tc_ome06 = '1' ";
-                //OracleCommand command = new OracleCommand(sql, this.connection);
+                
                 OracleDataReader oracleDataReader = command.ExecuteReader();
 
                 dataTable = new DataTable();

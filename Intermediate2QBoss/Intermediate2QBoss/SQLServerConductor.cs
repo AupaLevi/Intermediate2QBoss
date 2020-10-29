@@ -14,12 +14,10 @@ namespace Intermediate2QBoss
         private SqlConnection sqlConnection;
         private ProjectStringPool projectStringPool = new ProjectStringPool();
 
-        private string sql;
-        private string actionResult;
 
         public SQLServerConductor()
         {
-            Initializer();       
+            Initializer();
         }
 
         private void Initializer()
@@ -32,10 +30,6 @@ namespace Intermediate2QBoss
             String sqlConnectionString = Builder.ConnectionString;
             sqlConnection = new SqlConnection(sqlConnectionString);
         }
-
-
-        
-        
 
         private bool OpenConnection()
         {
@@ -77,9 +71,6 @@ namespace Intermediate2QBoss
             }
         }
 
-       
-
-       
         public DataTable GetDataTable(String sql)
         {
             DataTable dataTable = null;
@@ -93,14 +84,7 @@ namespace Intermediate2QBoss
                 sqlcommand.Connection = sqlConnection;
                 sqlcommand.CommandText = sql;
                 sqlcommand.CommandType = CommandType.Text;
-                //OracleParameter[] parameters = new OracleParameter[] {
-                //    new OracleParameter("val01",year),
-                //    new OracleParameter("val02",month)
-                //};
-                //command.Parameters.AddRange(parameters);
-                //sql = "SELECT * FROM tc_ome_file " +
-                //        " WHERE tc_ome06 = '1' ";
-                //OracleCommand command = new OracleCommand(sql, this.connection);
+
                 SqlDataReader sqlDataReader = sqlcommand.ExecuteReader();
 
                 dataTable = new DataTable();
@@ -116,11 +100,7 @@ namespace Intermediate2QBoss
             {
                 CloseConnection();
             }
-
-
             return dataTable;
         }
-
-       
     }
 }

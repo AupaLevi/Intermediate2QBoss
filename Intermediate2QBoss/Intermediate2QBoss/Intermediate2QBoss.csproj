@@ -53,16 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonUntil.cs" />
-    <Compile Include="MasterDetailIDSQLServerConductor.cs" />
     <Compile Include="OracleDBConductor.cs" />
-    <Compile Include="OraEi_DetailObject.cs" />
-    <Compile Include="OraEi_MasterLogObject.cs" />
-    <Compile Include="OraEi_MasterObject.cs" />
-    <Compile Include="OraEi_OmeObject.cs" />
     <Compile Include="PostalService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectStringPool.cs" />
     <Compile Include="QbossSQLServerConductor.cs" />
+    <Compile Include="SqlEi_DetailObject.cs" />
+    <Compile Include="SqlEi_MasterLogObject.cs" />
+    <Compile Include="SqlEi_MasterObject.cs" />
+    <Compile Include="SqlEi_OmeObject.cs" />
     <Compile Include="SQLServerConductor.cs" />
     <Compile Include="SQLServerDataSecuricor.cs" />
   </ItemGroup>

@@ -73,7 +73,7 @@ namespace Intermediate2QBoss
             }
         }
 
-        public String InsertEi_MasterSQLServer(OraEi_MasterObject oraEi_Masters)
+        public String InsertEi_MasterSQLServer(SqlEi_MasterObject sqlEi_Masters)
         {
             sql = "";
             ProjectStringPool stringPool = new ProjectStringPool();
@@ -90,60 +90,59 @@ namespace Intermediate2QBoss
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = sql;
 
-                //sqlCommand.Parameters.AddWithValue("36", ei_master.Id);
-                sqlCommand.Parameters.AddWithValue("@val02", oraEi_Masters.InvoiceNumber);
-                sqlCommand.Parameters.AddWithValue("@val03", oraEi_Masters.Status);
-                sqlCommand.Parameters.AddWithValue("@val04", oraEi_Masters.Purpose);
-                sqlCommand.Parameters.AddWithValue("@val05", oraEi_Masters.InvoiceDate);
-                sqlCommand.Parameters.AddWithValue("@val06", oraEi_Masters.CustomerID);
-                sqlCommand.Parameters.AddWithValue("@val07", oraEi_Masters.CustomerName);
-                sqlCommand.Parameters.AddWithValue("@val08", oraEi_Masters.CustomerTaxID);
-                sqlCommand.Parameters.AddWithValue("@val09", oraEi_Masters.InvoiceType);
-                sqlCommand.Parameters.AddWithValue("@val010", oraEi_Masters.PrintMark);
-                sqlCommand.Parameters.AddWithValue("@val011", oraEi_Masters.RandomNumber);
-                sqlCommand.Parameters.AddWithValue("@val012", oraEi_Masters.CarrierType);
-                sqlCommand.Parameters.AddWithValue("@val013", oraEi_Masters.CarrierID);
-                sqlCommand.Parameters.AddWithValue("@val014", oraEi_Masters.SalesAmount);
-                sqlCommand.Parameters.AddWithValue("@val015", oraEi_Masters.FreeTaxSalesAmount);
-                sqlCommand.Parameters.AddWithValue("@val016", oraEi_Masters.ZeroTaxSalesAmount);
-                sqlCommand.Parameters.AddWithValue("@val017", oraEi_Masters.TaxAmount);
-                sqlCommand.Parameters.AddWithValue("@val018", oraEi_Masters.TaxType);
-                sqlCommand.Parameters.AddWithValue("@val019", oraEi_Masters.TaxRate);
-                sqlCommand.Parameters.AddWithValue("@val020", oraEi_Masters.TotalAmount);
-                sqlCommand.Parameters.AddWithValue("@val021", oraEi_Masters.DonateNo);
-                sqlCommand.Parameters.AddWithValue("@val022", oraEi_Masters.DonateMark);
-                sqlCommand.Parameters.AddWithValue("@val023", oraEi_Masters.Exported);
-                sqlCommand.Parameters.AddWithValue("@val024", oraEi_Masters.GroupMark);
-                sqlCommand.Parameters.AddWithValue("@val025", oraEi_Masters.SellerTaxID);
-                sqlCommand.Parameters.AddWithValue("@val026", oraEi_Masters.SellerName);
-                sqlCommand.Parameters.AddWithValue("@val027", oraEi_Masters.SellerAddress);
-                sqlCommand.Parameters.AddWithValue("@val028", oraEi_Masters.MachineCode);
-                sqlCommand.Parameters.AddWithValue("@val029", oraEi_Masters.MachineSerialNum);
-                sqlCommand.Parameters.AddWithValue("@val030", oraEi_Masters.CancelExported);
-                sqlCommand.Parameters.AddWithValue("@val031", oraEi_Masters.CancelReason);
-                sqlCommand.Parameters.AddWithValue("@val032", oraEi_Masters.CancelTime);
-                sqlCommand.Parameters.AddWithValue("@val033", oraEi_Masters.Notes);
-                sqlCommand.Parameters.AddWithValue("@val034", oraEi_Masters.VoidExported);
-                sqlCommand.Parameters.AddWithValue("@val035", oraEi_Masters.VoidReason);
-                sqlCommand.Parameters.AddWithValue("@val036", oraEi_Masters.VoidTime);
-                sqlCommand.Parameters.AddWithValue("@val037", oraEi_Masters.InErrorList);
-                sqlCommand.Parameters.AddWithValue("@val038", oraEi_Masters.UploadStatus);
-                sqlCommand.Parameters.AddWithValue("@val039", oraEi_Masters.UploadMessage);
-                sqlCommand.Parameters.AddWithValue("@val040", oraEi_Masters.IOType);
-                sqlCommand.Parameters.AddWithValue("@val041", oraEi_Masters.RejectReason);
-                sqlCommand.Parameters.AddWithValue("@val042", oraEi_Masters.RejectTime);
-                sqlCommand.Parameters.AddWithValue("@val043", oraEi_Masters.CreditCard);
-                sqlCommand.Parameters.AddWithValue("@val044", oraEi_Masters.Cash);
-                sqlCommand.Parameters.AddWithValue("@val045", oraEi_Masters.CashDiscount);
-                sqlCommand.Parameters.AddWithValue("@val046", oraEi_Masters.InvoiceSpecies);
-                sqlCommand.Parameters.AddWithValue("@val047", oraEi_Masters.InvType);
-                sqlCommand.Parameters.AddWithValue("@val048", oraEi_Masters.OrderNo);
-                sqlCommand.Parameters.AddWithValue("@val049", oraEi_Masters.CustomsClearanceMark);
-                sqlCommand.Parameters.AddWithValue("@val050", oraEi_Masters.CreditCardLast4No);
-                sqlCommand.Parameters.AddWithValue("@val051", oraEi_Masters.CustomerAddress);
-                sqlCommand.Parameters.AddWithValue("@val052", oraEi_Masters.MessageBeginTime);
-                sqlCommand.Parameters.AddWithValue("@val053", oraEi_Masters.WebPrintState);
-                sqlCommand.Parameters.AddWithValue("@val054", oraEi_Masters.VAT);
+                sqlCommand.Parameters.AddWithValue("@val02", sqlEi_Masters.InvoiceNumber);
+                sqlCommand.Parameters.AddWithValue("@val03", sqlEi_Masters.Status);
+                sqlCommand.Parameters.AddWithValue("@val04", sqlEi_Masters.Purpose);
+                sqlCommand.Parameters.AddWithValue("@val05", sqlEi_Masters.InvoiceDate);
+                sqlCommand.Parameters.AddWithValue("@val06", sqlEi_Masters.CustomerID);
+                sqlCommand.Parameters.AddWithValue("@val07", sqlEi_Masters.CustomerName);
+                sqlCommand.Parameters.AddWithValue("@val08", sqlEi_Masters.CustomerTaxID);
+                sqlCommand.Parameters.AddWithValue("@val09", sqlEi_Masters.InvoiceType);
+                sqlCommand.Parameters.AddWithValue("@val010", sqlEi_Masters.PrintMark);
+                sqlCommand.Parameters.AddWithValue("@val011", sqlEi_Masters.RandomNumber);
+                sqlCommand.Parameters.AddWithValue("@val012", sqlEi_Masters.CarrierType);
+                sqlCommand.Parameters.AddWithValue("@val013", sqlEi_Masters.CarrierID);
+                sqlCommand.Parameters.AddWithValue("@val014", sqlEi_Masters.SalesAmount);
+                sqlCommand.Parameters.AddWithValue("@val015", sqlEi_Masters.FreeTaxSalesAmount);
+                sqlCommand.Parameters.AddWithValue("@val016", sqlEi_Masters.ZeroTaxSalesAmount);
+                sqlCommand.Parameters.AddWithValue("@val017", sqlEi_Masters.TaxAmount);
+                sqlCommand.Parameters.AddWithValue("@val018", sqlEi_Masters.TaxType);
+                sqlCommand.Parameters.AddWithValue("@val019", sqlEi_Masters.TaxRate);
+                sqlCommand.Parameters.AddWithValue("@val020", sqlEi_Masters.TotalAmount);
+                sqlCommand.Parameters.AddWithValue("@val021", sqlEi_Masters.DonateNo);
+                sqlCommand.Parameters.AddWithValue("@val022", sqlEi_Masters.DonateMark);
+                sqlCommand.Parameters.AddWithValue("@val023", sqlEi_Masters.Exported);
+                sqlCommand.Parameters.AddWithValue("@val024", sqlEi_Masters.GroupMark);
+                sqlCommand.Parameters.AddWithValue("@val025", sqlEi_Masters.SellerTaxID);
+                sqlCommand.Parameters.AddWithValue("@val026", sqlEi_Masters.SellerName);
+                sqlCommand.Parameters.AddWithValue("@val027", sqlEi_Masters.SellerAddress);
+                sqlCommand.Parameters.AddWithValue("@val028", sqlEi_Masters.MachineCode);
+                sqlCommand.Parameters.AddWithValue("@val029", sqlEi_Masters.MachineSerialNum);
+                sqlCommand.Parameters.AddWithValue("@val030", sqlEi_Masters.CancelExported);
+                sqlCommand.Parameters.AddWithValue("@val031", sqlEi_Masters.CancelReason);
+                sqlCommand.Parameters.AddWithValue("@val032", sqlEi_Masters.CancelTime);
+                sqlCommand.Parameters.AddWithValue("@val033", sqlEi_Masters.Notes);
+                sqlCommand.Parameters.AddWithValue("@val034", sqlEi_Masters.VoidExported);
+                sqlCommand.Parameters.AddWithValue("@val035", sqlEi_Masters.VoidReason);
+                sqlCommand.Parameters.AddWithValue("@val036", sqlEi_Masters.VoidTime);
+                sqlCommand.Parameters.AddWithValue("@val037", sqlEi_Masters.InErrorList);
+                sqlCommand.Parameters.AddWithValue("@val038", sqlEi_Masters.UploadStatus);
+                sqlCommand.Parameters.AddWithValue("@val039", sqlEi_Masters.UploadMessage);
+                sqlCommand.Parameters.AddWithValue("@val040", sqlEi_Masters.IOType);
+                sqlCommand.Parameters.AddWithValue("@val041", sqlEi_Masters.RejectReason);
+                sqlCommand.Parameters.AddWithValue("@val042", sqlEi_Masters.RejectTime);
+                sqlCommand.Parameters.AddWithValue("@val043", sqlEi_Masters.CreditCard);
+                sqlCommand.Parameters.AddWithValue("@val044", sqlEi_Masters.Cash);
+                sqlCommand.Parameters.AddWithValue("@val045", sqlEi_Masters.CashDiscount);
+                sqlCommand.Parameters.AddWithValue("@val046", sqlEi_Masters.InvoiceSpecies);
+                sqlCommand.Parameters.AddWithValue("@val047", sqlEi_Masters.InvType);
+                sqlCommand.Parameters.AddWithValue("@val048", sqlEi_Masters.OrderNo);
+                sqlCommand.Parameters.AddWithValue("@val049", sqlEi_Masters.CustomsClearanceMark);
+                sqlCommand.Parameters.AddWithValue("@val050", sqlEi_Masters.CreditCardLast4No);
+                sqlCommand.Parameters.AddWithValue("@val051", sqlEi_Masters.CustomerAddress);
+                sqlCommand.Parameters.AddWithValue("@val052", sqlEi_Masters.MessageBeginTime);
+                sqlCommand.Parameters.AddWithValue("@val053", sqlEi_Masters.WebPrintState);
+                sqlCommand.Parameters.AddWithValue("@val054", sqlEi_Masters.VAT);
 
                 sqlCommand.ExecuteNonQuery();
             }
@@ -170,19 +169,12 @@ namespace Intermediate2QBoss
             {
                 //string name = sqlConnection.ServiceName;
                 CommonUntil commonUntil = new CommonUntil();
-                //int year = commonUntil.getYear();
+
                 SqlCommand sqlcommand = new SqlCommand(sql, this.sqlConnection);
                 sqlcommand.Connection = sqlConnection;
                 sqlcommand.CommandText = sql;
                 sqlcommand.CommandType = CommandType.Text;
-                //OracleParameter[] parameters = new OracleParameter[] {
-                //    new OracleParameter("val01",year),
-                //    new OracleParameter("val02",month)
-                //};
-                //command.Parameters.AddRange(parameters);
-                //sql = "SELECT * FROM tc_ome_file " +
-                //        " WHERE tc_ome06 = '1' ";
-                //OracleCommand command = new OracleCommand(sql, this.connection);
+             
                 SqlDataReader sqlDataReader = sqlcommand.ExecuteReader();
 
                 dataTable = new DataTable();
@@ -203,7 +195,7 @@ namespace Intermediate2QBoss
             return dataTable;
         }
 
-        public String InsertEi_DetailSQLServer(OraEi_DetailObject oraEi_Details)
+        public String InsertEi_DetailSQLServer(SqlEi_DetailObject sqlEi_Details)
         {
             sql = "";
             ProjectStringPool stringPool = new ProjectStringPool();
@@ -219,14 +211,14 @@ namespace Intermediate2QBoss
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = sql;
 
-                sqlCommand.Parameters.AddWithValue("@val00", oraEi_Details.InvoiceId);
-                sqlCommand.Parameters.AddWithValue("@val01", oraEi_Details.ProductID);
-                sqlCommand.Parameters.AddWithValue("@val02", oraEi_Details.Description);
-                sqlCommand.Parameters.AddWithValue("@val03", oraEi_Details.Quantity);
-                sqlCommand.Parameters.AddWithValue("@val04", oraEi_Details.Unit);
-                sqlCommand.Parameters.AddWithValue("@val05", oraEi_Details.UnitPrice);
-                sqlCommand.Parameters.AddWithValue("@val06", oraEi_Details.SequenceNumber);
-                sqlCommand.Parameters.AddWithValue("@val07", oraEi_Details.Amount);
+                sqlCommand.Parameters.AddWithValue("@val00", sqlEi_Details.InvoiceId);
+                sqlCommand.Parameters.AddWithValue("@val01", sqlEi_Details.ProductID);
+                sqlCommand.Parameters.AddWithValue("@val02", sqlEi_Details.Description);
+                sqlCommand.Parameters.AddWithValue("@val03", sqlEi_Details.Quantity);
+                sqlCommand.Parameters.AddWithValue("@val04", sqlEi_Details.Unit);
+                sqlCommand.Parameters.AddWithValue("@val05", sqlEi_Details.UnitPrice);
+                sqlCommand.Parameters.AddWithValue("@val06", sqlEi_Details.SequenceNumber);
+                sqlCommand.Parameters.AddWithValue("@val07", sqlEi_Details.Amount);
 
                 sqlCommand.ExecuteNonQuery();
             }
@@ -245,7 +237,7 @@ namespace Intermediate2QBoss
             return actionResult;
         }
 
-        public String UpdateEi_MasterMacNumSQLServer(OraEi_MasterObject oraEi_MasObjs)
+        public String UpdateEi_MasterMacNumSQLServer(SqlEi_MasterObject sqlEi_MasObjs)
         {
             sql = "";
             ProjectStringPool stringPool = new ProjectStringPool();
@@ -261,7 +253,7 @@ namespace Intermediate2QBoss
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = sql;
 
-                sqlCommand.Parameters.AddWithValue("@val00", oraEi_MasObjs.MachineSerialNum);
+                sqlCommand.Parameters.AddWithValue("@val00", sqlEi_MasObjs.MachineSerialNum);
 
 
                 sqlCommand.ExecuteNonQuery();
@@ -269,6 +261,42 @@ namespace Intermediate2QBoss
             catch (Exception ex)
             {
                 Console.Write("SQLServer Ins Ei_MasterMacNum Exception : " + ex.Message);
+                actionResult = "FAIL";
+
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+
+            return actionResult;
+        }
+
+        public String UpdateEi_DetailInvIdSQLServer(SqlEi_MasterObject sqlEi_Masters)
+        {
+            sql = "";
+            ProjectStringPool stringPool = new ProjectStringPool();
+
+            sql = stringPool.getUpdSQLServerEi_DetailIdSQL();
+
+            actionResult = "SUCCESS";
+            OpenConnection();
+
+            try
+            {
+                SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = sql;
+
+                sqlCommand.Parameters.AddWithValue("@val00", sqlEi_Masters.Id);
+
+
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.Write("SQLServer Ins Ei_DetailId Exception : " + ex.Message);
                 actionResult = "FAIL";
 
             }

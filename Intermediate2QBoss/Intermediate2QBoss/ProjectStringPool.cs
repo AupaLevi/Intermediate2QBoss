@@ -12,8 +12,6 @@ namespace Intermediate2QBoss
         //Oracle Side
         private string oracleConnectionString;
 
-        
-
         //SQLServer Side
         private string selectEi_OmeDataSQL;
         private string insSQLServerEi_MasterSQL;
@@ -21,8 +19,7 @@ namespace Intermediate2QBoss
         private string SelectDetailTc_OmeDataSQL;
         private string insSQLServerEi_DetailSQL;
 
-        private string SelectDetailMasterDataSQL;
-
+        private string SelectMasterDataSQL;
         private string updateSQLServerEi_DetailIdSQL;
         private string updateSQLServerEi_MasterMacNumSQL;
 
@@ -46,8 +43,7 @@ namespace Intermediate2QBoss
         public string getInsSQLServerEi_MasterSQL()
         {
             this.insSQLServerEi_MasterSQL =
-                
-                " INSERT INTO EInvoiceMaster (" +
+             " INSERT INTO EInvoiceMaster (" +
                 " InvoiceNumber ,Status ,Purpose ,InvoiceDate ,CustomerID ,CustomerName ,CustomerTaxID ,InvoiceType ,PrintMark ,RandomNumber ," +
                 " CarrierType ,CarrierID ,SalesAmount ,FreeTaxSalesAmount ,ZeroTaxSalesAmount ,TaxAmount ,TaxType ,TaxRate ," +
                 " TotalAmount ,DonateNo ,DonateMark ,Exported ,GroupMark ,SellerTaxID ,SellerName ,SellerAddress ,MachineCode ,MachineSerialNum ," +
@@ -73,11 +69,11 @@ namespace Intermediate2QBoss
             return this.SelectDetailTc_OmeDataSQL;
         }
 
-        public string getSelectDetailMasterDataSQL()
+        public string getSelectMasterDataSQL()
         {
-            this.SelectDetailMasterDataSQL =
-                " select * from EInvoiceMaster ";
-            return this.SelectDetailMasterDataSQL;
+            this.SelectMasterDataSQL =
+                 " select * from EInvoiceMaster ";
+            return this.SelectMasterDataSQL;
         }
 
         public string getInsSQLServerEi_DetailSQL()

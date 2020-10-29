@@ -80,8 +80,6 @@ namespace Intermediate2QBoss
                 SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = sql;
-                
-
 
                 dataCount = Convert.ToInt16(sqlCommand.ExecuteScalar());
                 if (dataCount == -1)
@@ -114,8 +112,6 @@ namespace Intermediate2QBoss
                 SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = sql;
-
-
 
                 dataCount = Convert.ToInt16(sqlCommand.ExecuteScalar());
                 if (dataCount == -1)
