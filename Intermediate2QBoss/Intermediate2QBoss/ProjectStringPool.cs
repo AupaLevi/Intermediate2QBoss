@@ -12,6 +12,8 @@ namespace Intermediate2QBoss
         //Oracle Side
         private string oracleConnectionString;
 
+        private string selectOmeDataSQL;
+
         //SQLServer Side
         private string selectEi_OmeDataSQL;
         private string insSQLServerEi_MasterSQL;
@@ -38,6 +40,14 @@ namespace Intermediate2QBoss
                 " SELECT * FROM ei_ome_file ";
 
             return this.selectEi_OmeDataSQL;
+        }
+
+        public string getselectOmeDataSQL()
+        {
+            this.selectOmeDataSQL =
+                " select * from tc_ome_file , ome_file" +
+                " where tc_ome01 = ome01 and tc_ome06 = '2' ";
+            return this.selectOmeDataSQL;
         }
 
         public string getInsSQLServerEi_MasterSQL()

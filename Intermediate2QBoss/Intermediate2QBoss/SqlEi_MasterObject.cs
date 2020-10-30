@@ -21,10 +21,10 @@ namespace Intermediate2QBoss
         private int randomNumber;
         private string carrierType;
         private string carrierID;
-        private decimal salesAmount;
-        private decimal freeTaxSalesAmount;
-        private decimal zeroTaxSalesAmount;
-        private decimal taxAmount;
+        private int salesAmount;
+        private int freeTaxSalesAmount;
+        private int zeroTaxSalesAmount;
+        private int taxAmount;
         private int taxType;
         private decimal taxRate;
         private decimal totalAmount;
@@ -76,10 +76,10 @@ namespace Intermediate2QBoss
         public int RandomNumber { get => randomNumber; set => randomNumber = value; }
         public string CarrierType { get => carrierType; set => carrierType = value; }
         public string CarrierID { get => carrierID; set => carrierID = value; }
-        public decimal SalesAmount { get => salesAmount; set => salesAmount = value; }
-        public decimal FreeTaxSalesAmount { get => freeTaxSalesAmount; set => freeTaxSalesAmount = value; }
-        public decimal ZeroTaxSalesAmount { get => zeroTaxSalesAmount; set => zeroTaxSalesAmount = value; }
-        public decimal TaxAmount { get => taxAmount; set => taxAmount = value; }
+        public int SalesAmount { get => salesAmount; set => salesAmount = value; }
+        public int FreeTaxSalesAmount { get => freeTaxSalesAmount; set => freeTaxSalesAmount = value; }
+        public int ZeroTaxSalesAmount { get => zeroTaxSalesAmount; set => zeroTaxSalesAmount = value; }
+        public int TaxAmount { get => taxAmount; set => taxAmount = value; }
         public int TaxType { get => taxType; set => taxType = value; }
         public decimal TaxRate { get => taxRate; set => taxRate = value; }
         public decimal TotalAmount { get => totalAmount; set => totalAmount = value; }

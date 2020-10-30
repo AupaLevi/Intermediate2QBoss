@@ -18,6 +18,7 @@ namespace Intermediate2QBoss
             QbossSQLServerConductor qbossSQLServerConductor = new QbossSQLServerConductor();
             OracleDBConductor oracleDBConductor = new OracleDBConductor();
             DataTable dataTable;
+            DataTable dataTablepart;
 
             SqlEi_MasterObject sqlEi_MasterObject;
             SqlEi_DetailObject sqlEi_DetailObject;
@@ -43,17 +44,18 @@ namespace Intermediate2QBoss
             try
             {
                 string sqlString = projectStringPool.getSelectEi_OmeDataSQL();
-
+                string sqlpartString = projectStringPool.getselectOmeDataSQL();
                 dataTable = sqlServerConductor.GetDataTable(sqlString);
+                dataTablepart = oracleDBConductor.GetDataTable(sqlpartString);
                 actionResult = "";
 
                 goodSQLServerEi_MasterObjects = new List<SqlEi_MasterObject>();
-
+                sqlEi_MasterObject = new SqlEi_MasterObject();
                 if (dataTable.Rows.Count > 0)
                 {
                     foreach (DataRow row in dataTable.Rows)
                     {
-                        sqlEi_MasterObject = new SqlEi_MasterObject();
+
                         actionResult = "Y";
 
                         try
@@ -71,15 +73,7 @@ namespace Intermediate2QBoss
                             sqlEi_MasterObject.PrintMark = ' ';
                             sqlEi_MasterObject.RandomNumber = rnd.Next(0, 10000); // creates a number between 1 and 9999
                             sqlEi_MasterObject.CarrierType = "  ";
-                            sqlEi_MasterObject.CarrierID = "  ";
-                            sqlEi_MasterObject.SalesAmount = (row[dataTable.Columns["ei_ome13"]]) == DBNull.Value ? 0 :
-                                    Convert.ToDecimal(row[dataTable.Columns["ei_ome13"]]);
-                            sqlEi_MasterObject.FreeTaxSalesAmount = (row[dataTable.Columns["ei_ome11"]]) == DBNull.Value ? 0 :
-                                    Convert.ToDecimal(row[dataTable.Columns["ei_ome11"]]);
-                            sqlEi_MasterObject.ZeroTaxSalesAmount = (row[dataTable.Columns["ei_ome11"]]) == DBNull.Value ? 0 :
-                                    Convert.ToDecimal(row[dataTable.Columns["ei_ome11"]]);
-                            sqlEi_MasterObject.TaxAmount = (row[dataTable.Columns["ei_ome12"]]) == DBNull.Value ? 0 :
-                                    Convert.ToDecimal(row[dataTable.Columns["ei_ome12"]]);
+                            sqlEi_MasterObject.CarrierID = "  ";     
                             sqlEi_MasterObject.TaxType = ' ';
                             sqlEi_MasterObject.TaxRate = (row[dataTable.Columns["ei_ome10"]]) == DBNull.Value ? 0 :
                                     Convert.ToDecimal(row[dataTable.Columns["ei_ome10"]]);
@@ -89,18 +83,8 @@ namespace Intermediate2QBoss
                             sqlEi_MasterObject.DonateMark = 0;
                             sqlEi_MasterObject.Exported = 0;
                             sqlEi_MasterObject.GroupMark = 0;
-                            sqlEi_MasterObject.SellerTaxID = "53096433";
-                            sqlEi_MasterObject.SellerName = "歐帕生技醫藥股份有限公司 AUPA BIOPHARM CO.";
-                            sqlEi_MasterObject.SellerAddress = "NULL";
                             sqlEi_MasterObject.MachineCode = "DC";
                             sqlEi_MasterObject.MachineSerialNum = ' ';
-                            sqlEi_MasterObject.CancelExported = ' ';
-                            sqlEi_MasterObject.CancelReason = "  ";
-                            sqlEi_MasterObject.CancelTime = " ";
-                            sqlEi_MasterObject.Notes = " ";
-                            sqlEi_MasterObject.VoidExported = ' ';
-                            sqlEi_MasterObject.VoidReason = "  ";
-                            sqlEi_MasterObject.VoidTime = " ";
                             sqlEi_MasterObject.InErrorList = 0;
                             sqlEi_MasterObject.UploadStatus = 0;
                             sqlEi_MasterObject.UploadMessage = "  ";
@@ -113,9 +97,8 @@ namespace Intermediate2QBoss
                             sqlEi_MasterObject.InvoiceSpecies = 2;
                             sqlEi_MasterObject.InvType = 35;
                             sqlEi_MasterObject.OrderNo = "  ";
-                            sqlEi_MasterObject.CustomsClearanceMark = ' ';
                             sqlEi_MasterObject.CreditCardLast4No = "  ";
-                            sqlEi_MasterObject.CustomerAddress = "  ";
+                            sqlEi_MasterObject.CustomerAddress = row[dataTable.Columns["ei_ome07"]].ToString();
                             sqlEi_MasterObject.MessageBeginTime = " ";
                             sqlEi_MasterObject.WebPrintState = "  ";
                             sqlEi_MasterObject.VAT = 0;
@@ -128,37 +111,62 @@ namespace Intermediate2QBoss
                             PostalService postalService = new PostalService();
                             postalService.SendMail("levi.huang@aupa.com.tw", "Intermediate2QBoss Data Copier Alert", ex.Message);
                             break;
-                        }
-                        finally
-                        {
-                            if (actionResult == "Y")
-                            {
-                                SQLServerDataSecuricor dataSecuricor = new SQLServerDataSecuricor();
-                                dataCount = 0;
-                                dataCount = dataSecuricor.SelectEi_MasterRowCounts(sqlEi_MasterObject.InvoiceNumber);
-
-                                if (dataCount == 0)
-                                {
-                                    goodSQLServerEi_MasterObjects.Add(sqlEi_MasterObject);
-                                }
-                            }
-                        }//End of try-catch-finally
+                        }     
                     }//End of if else
-                    MasterResult = "FAILED";
+                }
 
-                    
-                    if (goodSQLServerEi_MasterObjects.Count > 0)
+                if (dataTablepart.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTablepart.Rows)
                     {
-                        foreach (SqlEi_MasterObject ei_InsMaster in goodSQLServerEi_MasterObjects)
+                        actionResult = "Y";
+                        try
                         {
-                            qbossSQLServerConductor = new QbossSQLServerConductor();
-                            MasterResult = qbossSQLServerConductor.InsertEi_MasterSQLServer(ei_InsMaster);
-                            if (MasterResult == "SUCCESS")
-                            {
-                                insertedEi_MasterObjects.Add(ei_InsMaster);
-                            }
+                            sqlEi_MasterObject.SalesAmount = (row[dataTablepart.Columns["ome59t"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt32(row[dataTablepart.Columns["ome59t"]]);
+                            sqlEi_MasterObject.FreeTaxSalesAmount = (row[dataTablepart.Columns["ome59"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt32(row[dataTablepart.Columns["ome59"]]);
+                            sqlEi_MasterObject.ZeroTaxSalesAmount = (row[dataTablepart.Columns["ome59t"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt32(row[dataTablepart.Columns["ome59t"]]);
+                            sqlEi_MasterObject.TaxAmount = (row[dataTablepart.Columns["ome59x"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt32(row[dataTablepart.Columns["ome59x"]]);
+                            sqlEi_MasterObject.SellerTaxID = row[dataTablepart.Columns["ome60"]].ToString();
+                            sqlEi_MasterObject.SellerName = "歐帕生技醫藥股份有限公司 AUPA BIOPHARM CO.";
+                            sqlEi_MasterObject.SellerAddress = "NULL";
+                            sqlEi_MasterObject.CancelExported = ' ' ;
+                            sqlEi_MasterObject.CancelReason = row[dataTablepart.Columns["omevoid2"]].ToString();
+                            sqlEi_MasterObject.CancelTime = (row[dataTablepart.Columns["omevoidd"]]) == DBNull.Value ? "" :
+                                Convert.ToDateTime(row[dataTablepart.Columns["omevoidd"]]).ToString("yyyy-MM-dd");
+                            sqlEi_MasterObject.Notes = " ";
+                            sqlEi_MasterObject.VoidExported = ' ';
+                            sqlEi_MasterObject.VoidReason = row[dataTablepart.Columns["omecnclm"]].ToString();
+                            sqlEi_MasterObject.VoidTime = (row[dataTablepart.Columns["omecnclt"]]) == DBNull.Value ? "" :
+                                Convert.ToDateTime(row[dataTablepart.Columns["omecnclt"]]).ToString("yyyy-MM-dd");
+                            sqlEi_MasterObject.CustomsClearanceMark = (row[dataTablepart.Columns["ome172"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt16(row[dataTablepart.Columns["ome172"]]);
+                        }
+                        catch (Exception ex)
+                        {
+                            actionResult = "N";
+                            Console.WriteLine("Foreach Exception:" + ex.Message);
+                            PostalService postalService = new PostalService();
+                            postalService.SendMail("levi.huang@aupa.com.tw", "Intermediate2QBoss Data Copier Alert", ex.Message);
+                            break;
                         }
                     }
+                }
+                goodSQLServerEi_MasterObjects.Add(sqlEi_MasterObject);
+                if (goodSQLServerEi_MasterObjects.Count > 0)
+                {
+                    foreach (SqlEi_MasterObject ei_InsMaster in goodSQLServerEi_MasterObjects)
+                    {
+                        actionResult = qbossSQLServerConductor.InsertEi_MasterSQLServer(ei_InsMaster);
+                        if (actionResult == "SUCCESS")
+                        {
+                            insertedEi_MasterObjects.Add(ei_InsMaster);
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)

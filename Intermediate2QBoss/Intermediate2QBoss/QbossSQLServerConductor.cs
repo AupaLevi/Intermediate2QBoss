@@ -15,7 +15,6 @@ namespace Intermediate2QBoss
         private ProjectStringPool projectStringPool = new ProjectStringPool();
         private string actionResult;
 
-
         string sql;
 
         public QbossSQLServerConductor()
@@ -82,7 +81,7 @@ namespace Intermediate2QBoss
 
             actionResult = "SUCCESS";
             OpenConnection();
-
+      
 
             try
             {
@@ -155,6 +154,7 @@ namespace Intermediate2QBoss
             finally
             {
                 CloseConnection();
+               
             }
 
 
@@ -247,6 +247,7 @@ namespace Intermediate2QBoss
             actionResult = "SUCCESS";
             OpenConnection();
 
+
             try
             {
                 SqlCommand sqlCommand = sqlConnection.CreateCommand();
@@ -308,5 +309,6 @@ namespace Intermediate2QBoss
 
             return actionResult;
         }
+
     }
 }
