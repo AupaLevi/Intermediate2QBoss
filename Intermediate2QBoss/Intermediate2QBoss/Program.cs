@@ -18,8 +18,7 @@ namespace Intermediate2QBoss
             QbossSQLServerConductor qbossSQLServerConductor = new QbossSQLServerConductor();
             OracleDBConductor oracleDBConductor = new OracleDBConductor();
             DataTable dataTable;
-            DataTable dataTablepart;
-
+            DataTable sqldataTable;
             SqlEi_MasterObject sqlEi_MasterObject;
             SqlEi_DetailObject sqlEi_DetailObject;
 
@@ -38,47 +37,45 @@ namespace Intermediate2QBoss
             string MasterResult;
 
             Random rnd = new Random();
-            insertedEi_MasterObjects = new List<SqlEi_MasterObject>();
+
 
             goodSQLServerMasterIDObj = new List<SqlEi_MasterObject>();
+
+
             try
             {
-                string sqlString = projectStringPool.getSelectEi_OmeDataSQL();
-                string sqlpartString = projectStringPool.getselectOmeDataSQL();
-                dataTable = sqlServerConductor.GetDataTable(sqlString);
-                dataTablepart = oracleDBConductor.GetDataTable(sqlpartString);
-                actionResult = "";
+                string sqlString = projectStringPool.getselectOmeDataSQL();
+                dataTable = oracleDBConductor.GetDataTable(sqlString);
 
+                actionResult = "";
                 goodSQLServerEi_MasterObjects = new List<SqlEi_MasterObject>();
-                sqlEi_MasterObject = new SqlEi_MasterObject();
+
                 if (dataTable.Rows.Count > 0)
                 {
                     foreach (DataRow row in dataTable.Rows)
                     {
-
+                        sqlEi_MasterObject = new SqlEi_MasterObject();
                         actionResult = "Y";
-
                         try
                         {
-
-                            sqlEi_MasterObject.InvoiceNumber = row[dataTable.Columns["ei_ome01"]].ToString();
+                            sqlEi_MasterObject.InvoiceNumber = row[dataTable.Columns["ome01"]].ToString();
                             sqlEi_MasterObject.Status = 1;
                             sqlEi_MasterObject.Purpose = 0;
-                            sqlEi_MasterObject.InvoiceDate = (row[dataTable.Columns["ei_ome02"]]) == DBNull.Value ? "" :
-                                Convert.ToDateTime(row[dataTable.Columns["ei_ome02"]]).ToString("yyyy-MM-dd");
-                            sqlEi_MasterObject.CustomerID = row[dataTable.Columns["ei_ome04"]].ToString();
-                            sqlEi_MasterObject.CustomerName = row[dataTable.Columns["ei_ome06"]].ToString();
-                            sqlEi_MasterObject.CustomerTaxID = row[dataTable.Columns["ei_ome05"]].ToString();
+                            sqlEi_MasterObject.InvoiceDate = (row[dataTable.Columns["ome02"]]) == DBNull.Value ? "" :
+                                Convert.ToDateTime(row[dataTable.Columns["ome02"]]).ToString("yyyy-MM-dd");
+                            sqlEi_MasterObject.CustomerID = row[dataTable.Columns["ome04"]].ToString();
+                            sqlEi_MasterObject.CustomerName = row[dataTable.Columns["ome043"]].ToString();
+                            sqlEi_MasterObject.CustomerTaxID = row[dataTable.Columns["ome042"]].ToString();
                             sqlEi_MasterObject.InvoiceType = 7;
                             sqlEi_MasterObject.PrintMark = ' ';
                             sqlEi_MasterObject.RandomNumber = rnd.Next(0, 10000); // creates a number between 1 and 9999
                             sqlEi_MasterObject.CarrierType = "  ";
-                            sqlEi_MasterObject.CarrierID = "  ";     
+                            sqlEi_MasterObject.CarrierID = "  ";
                             sqlEi_MasterObject.TaxType = ' ';
-                            sqlEi_MasterObject.TaxRate = (row[dataTable.Columns["ei_ome10"]]) == DBNull.Value ? 0 :
-                                    Convert.ToDecimal(row[dataTable.Columns["ei_ome10"]]);
-                            sqlEi_MasterObject.TotalAmount = (row[dataTable.Columns["ei_ome13"]]) == DBNull.Value ? 0 :
-                                    Convert.ToDecimal(row[dataTable.Columns["ei_ome13"]]);
+                            sqlEi_MasterObject.TaxRate = (row[dataTable.Columns["ome211"]]) == DBNull.Value ? 0 :
+                                    Convert.ToDecimal(row[dataTable.Columns["ome211"]]);
+                            sqlEi_MasterObject.TotalAmount = (row[dataTable.Columns["ome59t"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt32(row[dataTable.Columns["ome59t"]]);
                             sqlEi_MasterObject.DonateNo = "  ";
                             sqlEi_MasterObject.DonateMark = 0;
                             sqlEi_MasterObject.Exported = 0;
@@ -98,11 +95,34 @@ namespace Intermediate2QBoss
                             sqlEi_MasterObject.InvType = 35;
                             sqlEi_MasterObject.OrderNo = "  ";
                             sqlEi_MasterObject.CreditCardLast4No = "  ";
-                            sqlEi_MasterObject.CustomerAddress = row[dataTable.Columns["ei_ome07"]].ToString();
+                            sqlEi_MasterObject.CustomerAddress = row[dataTable.Columns["ome044"]].ToString();
                             sqlEi_MasterObject.MessageBeginTime = " ";
                             sqlEi_MasterObject.WebPrintState = "  ";
                             sqlEi_MasterObject.VAT = 0;
 
+                            sqlEi_MasterObject.SalesAmount = (row[dataTable.Columns["ome59t"]]) == DBNull.Value ? 0 :
+                                   Convert.ToInt32(row[dataTable.Columns["ome59t"]]);
+                            sqlEi_MasterObject.FreeTaxSalesAmount = (row[dataTable.Columns["ome59"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt32(row[dataTable.Columns["ome59"]]);
+                            sqlEi_MasterObject.ZeroTaxSalesAmount = (row[dataTable.Columns["ome59t"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt32(row[dataTable.Columns["ome59t"]]);
+                            sqlEi_MasterObject.TaxAmount = (row[dataTable.Columns["ome59x"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt32(row[dataTable.Columns["ome59x"]]);
+                            sqlEi_MasterObject.SellerTaxID = row[dataTable.Columns["ome60"]].ToString();
+                            sqlEi_MasterObject.SellerName = "歐帕生技醫藥股份有限公司 AUPA BIOPHARM CO.";
+                            sqlEi_MasterObject.SellerAddress = "NULL";
+                            sqlEi_MasterObject.CancelExported = ' ';
+                            sqlEi_MasterObject.CancelReason = row[dataTable.Columns["omevoid2"]].ToString();
+                            sqlEi_MasterObject.CancelTime = (row[dataTable.Columns["omevoidd"]]) == DBNull.Value ? "" :
+                                Convert.ToDateTime(row[dataTable.Columns["omevoidd"]]).ToString("yyyy-MM-dd");
+                            sqlEi_MasterObject.Notes = " ";
+                            sqlEi_MasterObject.VoidExported = ' ';
+                            sqlEi_MasterObject.VoidReason = row[dataTable.Columns["omecnclm"]].ToString();
+                            sqlEi_MasterObject.VoidTime = (row[dataTable.Columns["omecnclt"]]) == DBNull.Value ? "" :
+                                Convert.ToDateTime(row[dataTable.Columns["omecnclt"]]).ToString("yyyy-MM-dd");
+                            sqlEi_MasterObject.CustomsClearanceMark = (row[dataTable.Columns["ome172"]]) == DBNull.Value ? 0 :
+                                    Convert.ToInt16(row[dataTable.Columns["ome172"]]);
+
                         }
                         catch (Exception ex)
                         {
@@ -111,51 +131,26 @@ namespace Intermediate2QBoss
                             PostalService postalService = new PostalService();
                             postalService.SendMail("levi.huang@aupa.com.tw", "Intermediate2QBoss Data Copier Alert", ex.Message);
                             break;
-                        }     
+                        }
+                        finally
+                        {
+                            if (actionResult == "Y")
+                            {
+                                SQLServerDataSecuricor dataSecuricor = new SQLServerDataSecuricor();
+                                dataCount = 0;
+                                dataCount = dataSecuricor.SelectEi_MasterRowCounts(sqlEi_MasterObject.InvoiceNumber);
+                                if (dataCount == 0)
+                                {
+                                    goodSQLServerEi_MasterObjects.Add(sqlEi_MasterObject);
+                                }
+                            }
+                        }
                     }//End of if else
                 }
 
-                if (dataTablepart.Rows.Count > 0)
-                {
-                    foreach (DataRow row in dataTablepart.Rows)
-                    {
-                        actionResult = "Y";
-                        try
-                        {
-                            sqlEi_MasterObject.SalesAmount = (row[dataTablepart.Columns["ome59t"]]) == DBNull.Value ? 0 :
-                                    Convert.ToInt32(row[dataTablepart.Columns["ome59t"]]);
-                            sqlEi_MasterObject.FreeTaxSalesAmount = (row[dataTablepart.Columns["ome59"]]) == DBNull.Value ? 0 :
-                                    Convert.ToInt32(row[dataTablepart.Columns["ome59"]]);
-                            sqlEi_MasterObject.ZeroTaxSalesAmount = (row[dataTablepart.Columns["ome59t"]]) == DBNull.Value ? 0 :
-                                    Convert.ToInt32(row[dataTablepart.Columns["ome59t"]]);
-                            sqlEi_MasterObject.TaxAmount = (row[dataTablepart.Columns["ome59x"]]) == DBNull.Value ? 0 :
-                                    Convert.ToInt32(row[dataTablepart.Columns["ome59x"]]);
-                            sqlEi_MasterObject.SellerTaxID = row[dataTablepart.Columns["ome60"]].ToString();
-                            sqlEi_MasterObject.SellerName = "歐帕生技醫藥股份有限公司 AUPA BIOPHARM CO.";
-                            sqlEi_MasterObject.SellerAddress = "NULL";
-                            sqlEi_MasterObject.CancelExported = ' ' ;
-                            sqlEi_MasterObject.CancelReason = row[dataTablepart.Columns["omevoid2"]].ToString();
-                            sqlEi_MasterObject.CancelTime = (row[dataTablepart.Columns["omevoidd"]]) == DBNull.Value ? "" :
-                                Convert.ToDateTime(row[dataTablepart.Columns["omevoidd"]]).ToString("yyyy-MM-dd");
-                            sqlEi_MasterObject.Notes = " ";
-                            sqlEi_MasterObject.VoidExported = ' ';
-                            sqlEi_MasterObject.VoidReason = row[dataTablepart.Columns["omecnclm"]].ToString();
-                            sqlEi_MasterObject.VoidTime = (row[dataTablepart.Columns["omecnclt"]]) == DBNull.Value ? "" :
-                                Convert.ToDateTime(row[dataTablepart.Columns["omecnclt"]]).ToString("yyyy-MM-dd");
-                            sqlEi_MasterObject.CustomsClearanceMark = (row[dataTablepart.Columns["ome172"]]) == DBNull.Value ? 0 :
-                                    Convert.ToInt16(row[dataTablepart.Columns["ome172"]]);
-                        }
-                        catch (Exception ex)
-                        {
-                            actionResult = "N";
-                            Console.WriteLine("Foreach Exception:" + ex.Message);
-                            PostalService postalService = new PostalService();
-                            postalService.SendMail("levi.huang@aupa.com.tw", "Intermediate2QBoss Data Copier Alert", ex.Message);
-                            break;
-                        }
-                    }
-                }
-                goodSQLServerEi_MasterObjects.Add(sqlEi_MasterObject);
+                actionResult = "FAILED";
+
+                insertedEi_MasterObjects = new List<SqlEi_MasterObject>();
                 if (goodSQLServerEi_MasterObjects.Count > 0)
                 {
                     foreach (SqlEi_MasterObject ei_InsMaster in goodSQLServerEi_MasterObjects)
@@ -202,6 +197,11 @@ namespace Intermediate2QBoss
                                        Convert.ToInt16(row[dataTable.Columns["Id"]]);
                                 sqlEi_MasterObject.MachineSerialNum = (row[dataTable.Columns["Id"]]) == DBNull.Value ? 0 :
                                        Convert.ToInt16(row[dataTable.Columns["Id"]]);
+                                sqlEi_MasterObject.InvoiceNumber = row[dataTable.Columns["InvoiceNumber"]].ToString();
+                                sqlEi_MasterObject.TotalAmount = (row[dataTable.Columns["TotalAmount"]]) == DBNull.Value ? 0 :
+                                   Convert.ToInt32(row[dataTable.Columns["TotalAmount"]]);
+                                sqlEi_MasterObject.FreeTaxSalesAmount = (row[dataTable.Columns["FreeTaxSalesAmount"]]) == DBNull.Value ? 0 :
+                                   Convert.ToInt32(row[dataTable.Columns["FreeTaxSalesAmount"]]);
 
                             }
                             catch (Exception ex)
@@ -230,7 +230,7 @@ namespace Intermediate2QBoss
                         }//End of if else
                         actionResult = "FAILED";
 
-                        updatedSQLServerMasterMacNumObj = new List<SqlEi_MasterObject>();
+
 
                         if (goodSQLServerMasterIDObj.Count > 0)
                         {
@@ -254,7 +254,7 @@ namespace Intermediate2QBoss
                     return;
                 }
             }
-           
+
 
             // insert MasterDetail
             try
@@ -262,6 +262,7 @@ namespace Intermediate2QBoss
                 string oraSQLString = projectStringPool.getSelectDetailTc_OmeDataSQL();
 
                 dataTable = oracleDBConductor.GetDataTable(oraSQLString);
+
                 oraResult = "";
 
                 //insertSQLServerEi_DetailObjects = new List<OraEi_DetailObject>();
@@ -313,6 +314,7 @@ namespace Intermediate2QBoss
                         }//End of try-catch-finally
                         //}//End of foreach
                     }//End of if else
+
                     MasterResult = "FAILED";
                     insertedEi_DetailObjects = new List<SqlEi_DetailObject>();
 
@@ -328,16 +330,16 @@ namespace Intermediate2QBoss
                             }
                         }
 
-                        foreach (SqlEi_MasterObject ei_UpdDetailId in goodSQLServerMasterIDObj)
+                        foreach (SqlEi_MasterObject eiMaster in goodSQLServerMasterIDObj)
                         {
-                            qbossSQLServerConductor.UpdateEi_DetailInvIdSQLServer(ei_UpdDetailId);
-                            
+                            qbossSQLServerConductor.UpdateEi_DetailInvIdSQLServer(eiMaster.Id ,eiMaster.TotalAmount ,eiMaster.FreeTaxSalesAmount);
                         }
+
                     }
+
                     dataCount = 0;
                     dataCount = insertedEi_DetailObjects.Count;
                 }
-
             }
             catch (Exception ex)
             {

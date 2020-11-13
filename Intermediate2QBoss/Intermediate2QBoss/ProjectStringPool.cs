@@ -17,6 +17,7 @@ namespace Intermediate2QBoss
         //SQLServer Side
         private string selectEi_OmeDataSQL;
         private string insSQLServerEi_MasterSQL;
+        private string SelectDetailIDDataSQL;
 
         private string SelectDetailTc_OmeDataSQL;
         private string insSQLServerEi_DetailSQL;
@@ -73,8 +74,8 @@ namespace Intermediate2QBoss
         public string getSelectDetailTc_OmeDataSQL()
         {
             this.SelectDetailTc_OmeDataSQL =
-                " select * from tc_ome_file , omb_file " +
-                " where tc_ome05 = omb01 and tc_ome06 = '2' ";
+                " select * from tc_ome_file , omb_file   " +
+                " where tc_ome05 = omb01  and tc_ome06 = '2'  ";
 
             return this.SelectDetailTc_OmeDataSQL;
         }
@@ -97,13 +98,7 @@ namespace Intermediate2QBoss
             return this.insSQLServerEi_DetailSQL;
         }
 
-        public string getUpdSQLServerEi_DetailIdSQL()
-        {
-            this.updateSQLServerEi_DetailIdSQL =
-                " update  EInvoiceDetail set InvoiceId = @val00  ";
 
-            return this.updateSQLServerEi_DetailIdSQL;
-        }
 
         public string getUpdSQLServerEi_MasterMacNumSQL()
         {
@@ -111,6 +106,15 @@ namespace Intermediate2QBoss
                 " update  EInvoiceMaster set MachineSerialNum = @val00  ";
 
             return this.updateSQLServerEi_MasterMacNumSQL;
+        }
+
+        public string getSelectDetailIDDataSQL()
+        {
+            this.SelectDetailIDDataSQL =
+               " select * from tc_ome_file , omb_file   " +
+               " where tc_ome05 = omb01  and tc_ome06 = '2'  ";
+
+            return this.SelectDetailIDDataSQL;
         }
     }
 }

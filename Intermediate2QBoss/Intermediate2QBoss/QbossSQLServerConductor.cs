@@ -81,7 +81,7 @@ namespace Intermediate2QBoss
 
             actionResult = "SUCCESS";
             OpenConnection();
-      
+
 
             try
             {
@@ -154,7 +154,7 @@ namespace Intermediate2QBoss
             finally
             {
                 CloseConnection();
-               
+
             }
 
 
@@ -174,7 +174,7 @@ namespace Intermediate2QBoss
                 sqlcommand.Connection = sqlConnection;
                 sqlcommand.CommandText = sql;
                 sqlcommand.CommandType = CommandType.Text;
-             
+
                 SqlDataReader sqlDataReader = sqlcommand.ExecuteReader();
 
                 dataTable = new DataTable();
@@ -239,14 +239,11 @@ namespace Intermediate2QBoss
 
         public String UpdateEi_MasterMacNumSQLServer(SqlEi_MasterObject sqlEi_MasObjs)
         {
-            sql = "";
-            ProjectStringPool stringPool = new ProjectStringPool();
-
-            sql = stringPool.getUpdSQLServerEi_MasterMacNumSQL();
+            sql = " update  EInvoiceMaster set MachineSerialNum = @val00  " +
+                " where InvoiceNumber = @val01";
 
             actionResult = "SUCCESS";
             OpenConnection();
-
 
             try
             {
@@ -254,7 +251,8 @@ namespace Intermediate2QBoss
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = sql;
 
-                sqlCommand.Parameters.AddWithValue("@val00", sqlEi_MasObjs.MachineSerialNum);
+                sqlCommand.Parameters.AddWithValue("@val00", sqlEi_MasObjs.Id);
+                sqlCommand.Parameters.AddWithValue("@val01", sqlEi_MasObjs.InvoiceNumber);
 
 
                 sqlCommand.ExecuteNonQuery();
@@ -274,12 +272,12 @@ namespace Intermediate2QBoss
             return actionResult;
         }
 
-        public String UpdateEi_DetailInvIdSQLServer(SqlEi_MasterObject sqlEi_Masters)
+        public String UpdateEi_DetailInvIdSQLServer(int Key1, int Key2, int Key3)
         {
-            sql = "";
-            ProjectStringPool stringPool = new ProjectStringPool();
+            sql = " update  EInvoiceDetail set InvoiceId = ' " + Key1 + "'" +
+                " where Amount = '" + Key2 + "'" +
+                " and UnitPrice =  '" + Key3 + "'";
 
-            sql = stringPool.getUpdSQLServerEi_DetailIdSQL();
 
             actionResult = "SUCCESS";
             OpenConnection();
@@ -289,8 +287,8 @@ namespace Intermediate2QBoss
                 SqlCommand sqlCommand = sqlConnection.CreateCommand();
                 sqlCommand.Connection = sqlConnection;
                 sqlCommand.CommandText = sql;
+                sqlCommand.CommandType = CommandType.Text;
 
-                sqlCommand.Parameters.AddWithValue("@val00", sqlEi_Masters.Id);
 
 
                 sqlCommand.ExecuteNonQuery();
@@ -309,6 +307,5 @@ namespace Intermediate2QBoss
 
             return actionResult;
         }
-
     }
 }

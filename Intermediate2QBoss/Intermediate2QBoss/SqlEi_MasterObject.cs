@@ -27,7 +27,7 @@ namespace Intermediate2QBoss
         private int taxAmount;
         private int taxType;
         private decimal taxRate;
-        private decimal totalAmount;
+        private int totalAmount;
         private string donateNo;
         private int donateMark;
         private int exported;
@@ -82,7 +82,7 @@ namespace Intermediate2QBoss
         public int TaxAmount { get => taxAmount; set => taxAmount = value; }
         public int TaxType { get => taxType; set => taxType = value; }
         public decimal TaxRate { get => taxRate; set => taxRate = value; }
-        public decimal TotalAmount { get => totalAmount; set => totalAmount = value; }
+        public int TotalAmount { get => totalAmount; set => totalAmount = value; }
         public string DonateNo { get => donateNo; set => donateNo = value; }
 
         public int DonateMark { get => donateMark; set => donateMark = value; }

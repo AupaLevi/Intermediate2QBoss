@@ -16,3 +16,12 @@ E:\Projects\1026\Intermediate2QBoss\Intermediate2QBoss\obj\Debug\Intermediate2QB
 E:\Projects\1026\Intermediate2QBoss\Intermediate2QBoss\obj\Debug\Intermediate2QBoss.csproj.CopyComplete
 E:\Projects\1026\Intermediate2QBoss\Intermediate2QBoss\obj\Debug\Intermediate2QBoss.exe
 E:\Projects\1026\Intermediate2QBoss\Intermediate2QBoss\obj\Debug\Intermediate2QBoss.pdb
+C:\Users\levi.huang\Desktop\Intermediate2QBoss-main\Intermediate2QBoss\Intermediate2QBoss\bin\Debug\Intermediate2QBoss.exe.config
+C:\Users\levi.huang\Desktop\Intermediate2QBoss-main\Intermediate2QBoss\Intermediate2QBoss\bin\Debug\Intermediate2QBoss.exe
+C:\Users\levi.huang\Desktop\Intermediate2QBoss-main\Intermediate2QBoss\Intermediate2QBoss\bin\Debug\Intermediate2QBoss.pdb
+C:\Users\levi.huang\Desktop\Intermediate2QBoss-main\Intermediate2QBoss\Intermediate2QBoss\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\levi.huang\Desktop\Intermediate2QBoss-main\Intermediate2QBoss\Intermediate2QBoss\obj\Debug\Intermediate2QBoss.csprojAssemblyReference.cache
+C:\Users\levi.huang\Desktop\Intermediate2QBoss-main\Intermediate2QBoss\Intermediate2QBoss\obj\Debug\Intermediate2QBoss.csproj.CoreCompileInputs.cache
+C:\Users\levi.huang\Desktop\Intermediate2QBoss-main\Intermediate2QBoss\Intermediate2QBoss\obj\Debug\Intermediate2QBoss.csproj.CopyComplete
+C:\Users\levi.huang\Desktop\Intermediate2QBoss-main\Intermediate2QBoss\Intermediate2QBoss\obj\Debug\Intermediate2QBoss.exe
+C:\Users\levi.huang\Desktop\Intermediate2QBoss-main\Intermediate2QBoss\Intermediate2QBoss\obj\Debug\Intermediate2QBoss.pdb
