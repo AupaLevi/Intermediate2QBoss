@@ -71,7 +71,7 @@ namespace Intermediate2QBoss
                             sqlEi_MasterObject.RandomNumber = rnd.Next(0, 10000); // creates a number between 1 and 9999
                             sqlEi_MasterObject.CarrierType = "  ";
                             sqlEi_MasterObject.CarrierID = "  ";
-                            sqlEi_MasterObject.TaxType = ' ';
+                            //sqlEi_MasterObject.TaxType = ' ';
                             sqlEi_MasterObject.TaxRate = (row[dataTable.Columns["ome211"]]) == DBNull.Value ? 0 :
                                     Convert.ToDecimal(row[dataTable.Columns["ome211"]]);
                             sqlEi_MasterObject.TotalAmount = (row[dataTable.Columns["ome59t"]]) == DBNull.Value ? 0 :
@@ -81,7 +81,7 @@ namespace Intermediate2QBoss
                             sqlEi_MasterObject.Exported = 0;
                             sqlEi_MasterObject.GroupMark = 0;
                             sqlEi_MasterObject.MachineCode = "DC";
-                            sqlEi_MasterObject.MachineSerialNum = ' ';
+                            //sqlEi_MasterObject.MachineSerialNum = ' ';
                             sqlEi_MasterObject.InErrorList = 0;
                             sqlEi_MasterObject.UploadStatus = 0;
                             sqlEi_MasterObject.UploadMessage = "  ";
@@ -277,7 +277,9 @@ namespace Intermediate2QBoss
 
                         try
                         {
-                            sqlEi_DetailObject.InvoiceId = ' ';
+                            //sqlEi_DetailObject.InvoiceId =  (row[dataTable.Columns["Id"]]) == DBNull.Value ? 0 :
+                            //Convert.ToInt16(row[dataTable.Columns["Id"]]);
+                            //sqlEi_DetailObject.InvoiceId = ' ';
                             sqlEi_DetailObject.ProductID = row[dataTable.Columns["omb04"]].ToString();
                             sqlEi_DetailObject.Description = row[dataTable.Columns["omb06"]].ToString();
                             sqlEi_DetailObject.Quantity = (row[dataTable.Columns["omb12"]]) == DBNull.Value ? 0 :
@@ -332,7 +334,7 @@ namespace Intermediate2QBoss
 
                         foreach (SqlEi_MasterObject eiMaster in goodSQLServerMasterIDObj)
                         {
-                            qbossSQLServerConductor.UpdateEi_DetailInvIdSQLServer(eiMaster.Id ,eiMaster.TotalAmount ,eiMaster.FreeTaxSalesAmount);
+                            qbossSQLServerConductor.UpdateEi_DetailInvIdSQLServer(eiMaster.Id, eiMaster.TotalAmount, eiMaster.FreeTaxSalesAmount);
                         }
 
                     }
