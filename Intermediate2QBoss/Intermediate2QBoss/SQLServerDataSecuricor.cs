@@ -99,7 +99,7 @@ namespace Intermediate2QBoss
             return dataCount;
         }
 
-        public int SelectEi_DetailRowCounts(string Key1)
+        public int SelectEi_DetailRowCounts(int key1, string key2, string key3, decimal key4, string key5, decimal key6, int key7, decimal key8)
         {
             OpenConnection();
 
@@ -107,7 +107,16 @@ namespace Intermediate2QBoss
             try
             {
                 sql = "SELECT COUNT(ProductID) FROM EInvoiceDetail " +
-                " WHERE ProductID='" + Key1 + "'";
+                " WHERE InvoiceId ='" + key1 + "'" +
+                " and  ProductID ='" + key2 + "'" +
+                " and Description ='" + key3 + "'" +
+                " and Quantity ='" + key4 + "'" +
+                " and Unit ='" + key5 + "'" +
+                " and UnitPrice ='" + key6 + "'" +
+                " and SequenceNumber ='" + key7 + "'" +
+                " and Amount ='" + key8 + "'";
+
+
 
                 SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
                 sqlCommand.Connection = sqlConnection;

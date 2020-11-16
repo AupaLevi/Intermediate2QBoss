@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonUntil.cs" />
+    <Compile Include="ombObject.cs" />
     <Compile Include="OracleDBConductor.cs" />
     <Compile Include="PostalService.cs" />
     <Compile Include="Program.cs" />

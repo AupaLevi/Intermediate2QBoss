@@ -11,7 +11,6 @@ namespace Intermediate2QBoss
     {
         //Oracle Side
         private string oracleConnectionString;
-
         private string selectOmeDataSQL;
 
         //SQLServer Side
@@ -23,8 +22,6 @@ namespace Intermediate2QBoss
         private string insSQLServerEi_DetailSQL;
 
         private string SelectMasterDataSQL;
-        private string updateSQLServerEi_DetailIdSQL;
-        private string updateSQLServerEi_MasterMacNumSQL;
 
         public string getOracleConnectionString(string host, string port, string sid, string user, string pass)
         {
@@ -74,8 +71,8 @@ namespace Intermediate2QBoss
         public string getSelectDetailTc_OmeDataSQL()
         {
             this.SelectDetailTc_OmeDataSQL =
-                " select * from tc_ome_file , omb_file   " +
-                " where tc_ome05 = omb01  and tc_ome06 = '2'  ";
+                " select * from oma_file , omb_file , tc_ome_file   " +
+                " where oma01 = omb01  and tc_ome06 = '2' and tc_ome05 = omb01 ";
 
             return this.SelectDetailTc_OmeDataSQL;
         }
@@ -96,16 +93,6 @@ namespace Intermediate2QBoss
                 "@val00 ,@val01 ,@val02 ,@val03 ,@val04 ,@val05 ,@val06 ,@val07  " +
                  ")";
             return this.insSQLServerEi_DetailSQL;
-        }
-
-
-
-        public string getUpdSQLServerEi_MasterMacNumSQL()
-        {
-            this.updateSQLServerEi_MasterMacNumSQL =
-                " update  EInvoiceMaster set MachineSerialNum = @val00  ";
-
-            return this.updateSQLServerEi_MasterMacNumSQL;
         }
 
         public string getSelectDetailIDDataSQL()

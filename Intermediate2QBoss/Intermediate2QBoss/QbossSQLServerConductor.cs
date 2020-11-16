@@ -272,11 +272,15 @@ namespace Intermediate2QBoss
             return actionResult;
         }
 
-        public String UpdateEi_DetailInvIdSQLServer(int Key1, int Key2, int Key3)
+        public String UpdateEi_DetailInvIdSQLServer(string Key1, string Key2, string Key3 ,string key4 ,string key5)
         {
-            sql = " update  EInvoiceDetail set InvoiceId = ' " + Key1 + "'" +
-                " where Amount = '" + Key2 + "'" +
-                " and UnitPrice =  '" + Key3 + "'";
+            sql = " update  EInvoiceDetail set ProductID = ' " + Key1 + "'" +
+                " , Description = '"  + Key2  + "'" +
+                " , Quantity ='" + Key3 + "'" +
+                " , Unit ='" + key4 + "'" +
+                " , SequenceNumber = '" + key5 + "'" +
+                " where InvoiceId = '" + Key3 + "'";
+                
 
 
             actionResult = "SUCCESS";
